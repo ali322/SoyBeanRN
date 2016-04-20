@@ -1,0 +1,3 @@
+rootProject.name = 'SoybeanRN'
+
+include ':app'
