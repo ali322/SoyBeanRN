@@ -1,0 +1,10 @@
+'use strict';
+
+export const REQUEST_TOP250 = "REQUEST_TOP250"
+export const RESPONSE_TOP250 = "RESPONSE_TOP250"
+
+export const REQUEST_MOVIES = "REQUEST_MOVIES"
+export const RESPONSE_MOVIES = "RESPONSE_MOVIES"
+
+export const REQUEST_MOVIE = "REQUEST_MOVIE"
+export const RESPONSE_MOVIE = "RESPONSE_MOVIE"
