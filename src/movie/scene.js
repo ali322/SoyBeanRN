@@ -11,10 +11,6 @@ let scenes = [
     }}></Scene>
 ]
 
-const navigationBarStyle = {
-    flexDirection:"row"
-}
-
 const rightButtonStyle = {
     width:44,
     height:44,
@@ -23,10 +19,6 @@ const rightButtonStyle = {
     alignItems:"center",
     position:"absolute",
     right:0,
-}
-
-const titleStyle = {
-    flex:1
 }
 
 export default scenes

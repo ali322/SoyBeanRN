@@ -7,6 +7,8 @@ import {containerByComponent} from "../lib/redux-helper";
 import rootReducer from "./reducer";
 import * as actions from "./action";
 
+import LoadMore from "../common/loadmore";
+
 class Movies extends Component {
     constructor(props) {
         super(props)
@@ -36,8 +38,7 @@ class Movies extends Component {
         }
     }
     loadMore() {
-        console.log("loadmore")
-        // this.props.fetchTop250(this.props.pageIndex + 1)
+        this.props.fetchTop250(this.props.pageIndex + 1)
     }
     renderRow(movie) {
         const cover = <Image style={styles.movieCover} source={{ uri: movie.images["small"] }}/>
@@ -62,7 +63,8 @@ class Movies extends Component {
         return (
             <View style={styles.container}>
                 <ListView dataSource={this.state.dataSource} renderRow={this.renderRow.bind(this) }
-                    onEndReached={this.loadMore.bind(this) } onEndReachedThreshold={-20} initialListSize={6}/>
+                    onEndReached={this.loadMore.bind(this) } onEndReachedThreshold={-20} initialListSize={6} 
+                    renderFooter={()=>this.props.list.length>0?<LoadMore active={this.props.top250Fetching} />:null}/>
             </View>
         )
     }
