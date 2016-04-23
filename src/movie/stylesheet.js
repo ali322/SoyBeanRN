@@ -6,6 +6,7 @@ const styles = {
     container: {
         flex: 1,
         backgroundColor: "#F7F7F7",
+        paddingBottom:49,
     },
     movieCell: {
         flexDirection: "row",
@@ -24,21 +25,21 @@ const styles = {
     },
     movieBreif: {
         paddingLeft: 8,
+        flex:1,
         flexDirection: "column",
-        justifyContent: "space-around"
+        justifyContent: "space-between"
     },
     movieTitle: {
-        flex: 3,
+        flex: 2,
         fontSize: 14,
         color: "#333",
     },
     movieSubtitle: {
-        flex: 2,
+        flex: 1.5,
         fontSize: 12,
         color: "#666"
     },
     movieCasts: {
-        height: 50,
         color: "#666",
     }
 }

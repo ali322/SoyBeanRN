@@ -6,7 +6,8 @@ import React, {
 import {Actions, Scene, Router, Reducer} from "react-native-router-flux";
 import Icon from "react-native-vector-icons/MaterialIcons";
 
-import Movie from "./movie/movie";
+import movieScene from "./movie/scene";
+import Book from "./book/book";
 
 const reducerCreator = params => {
     const defaultReducer = Reducer(params)
@@ -34,13 +35,13 @@ export default class App extends Component {
             <Router createReducer={reducerCreator}>
                 <Scene key="root">
                     <Scene tabs={true} key="tabbar" hideNavBar={true} tabBarStyle={styles.tabBar}>
-                        <Scene key="tab1" title="电影" navigationBarStyle={styles.navigationBar}  
+                        <Scene key="tab1" title="电影" navigationBarStyle={styles.navigationBar}
                             icon={tabIcon({ name: "movie", size: 18 }) }>
-                            <Scene key="movie" component={Movie} initial={true}></Scene>
+                            {movieScene}
                         </Scene>
                         <Scene key="tab2" title="图书" navigationBarStyle={styles.navigationBar}
                             icon={tabIcon({ name: "book", size: 18 }) }>
-                            <Scene key="movie" component={Movie} title="Top250"></Scene>
+                            <Scene key="book" component={Book} title="经典"></Scene>
                         </Scene>
                     </Scene>
                 </Scene>
@@ -64,8 +65,8 @@ const styles = StyleSheet.create({
         borderTopWidth: 1,
         borderTopColor: "#DDD",
     },
-    tabIconText:{
-        fontSize:12,
-        color:"#666"
+    tabIconText: {
+        fontSize: 12,
+        color: "#666"
     }
 })

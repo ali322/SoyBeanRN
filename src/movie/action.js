@@ -7,26 +7,27 @@ import {
 
 import api from "../lib/api";
 
-function requestTop250(){
+function requestTop250(pageIndex){
     return {
         type:REQUEST_TOP250,
+        pageIndex
     }
 }
 
-function responseTop250(ret) {
+function responseTop250(ret,pageIndex) {
     return {
         type:RESPONSE_TOP250,
         respondAt:Date.now(),
+        pageIndex,
         ret
     }
 }
 
-export function fetchTop250(pageIndex=0) {
+export function fetchTop250(pageIndex=0,pageSize=6) {
     return (dispatch)=>{
-        dispatch(requestTop250())
-        fetch(api.top250).then((ret)=>ret.json()).then((ret)=>{
-        console.log('top250',ret)
-            dispatch(responseTop250(ret))
+        dispatch(requestTop250(pageIndex))
+        fetch(`${api.top250}?start=${pageIndex * pageSize}&count=${pageSize}`).then((ret)=>ret.json()).then((ret)=>{
+            dispatch(responseTop250(ret,pageIndex))
         })
     }
 }
