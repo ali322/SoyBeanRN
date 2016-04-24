@@ -55,25 +55,27 @@ export function fetchMovies() {
     }
 }
 
-function requestMovie(){
+function requestMovie(id){
     return {
         type:REQUEST_MOVIE,
+        id
     }
 }
 
-function responseMovie(ret) {
+function responseMovie(ret,id) {
     return {
         type:RESPONSE_MOVIE,
         respondAt:Date.now(),
+        id,
         ret
     }
 }
 
-export function fetchMovie() {
+export function fetchMovie(id) {
     return (dispatch)=>{
-        dispatch(requestMovie())
-        fetch(api.movie).then((ret)=>ret.json()).then((ret)=>{
-            dispatch(responseMovie(ret))
+        dispatch(requestMovie(id))
+        fetch(`${api.movie}/${id}`).then((ret)=>ret.json()).then((ret)=>{
+            dispatch(responseMovie(ret,id))
         })
     }
 }

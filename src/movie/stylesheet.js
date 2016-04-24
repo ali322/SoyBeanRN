@@ -6,7 +6,7 @@ const styles = {
     container: {
         flex: 1,
         backgroundColor: "#F7F7F7",
-        paddingBottom:49,
+        marginBottom:49,
     },
     movieCell: {
         flexDirection: "row",
@@ -44,7 +44,12 @@ const styles = {
     }
 }
 
-const styleForAndroid = {}
+const styleForAndroid = {
+    container:{
+        ...styles.container,
+        marginTop:64
+    }
+}
 
 const styleForIOS = {
     container: {

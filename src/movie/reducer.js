@@ -8,7 +8,7 @@ import {
 
 import {combineReducers} from "redux";
 
-function top250(state = {}, action) {
+export function top250(state = {}, action) {
     switch (action.type) {
         case REQUEST_TOP250:
             return {
@@ -19,6 +19,7 @@ function top250(state = {}, action) {
         case RESPONSE_TOP250:
             const list = [].concat(state.list, action.ret.subjects)
             return {
+                ...state,
                 list,
                 pageIndex:action.pageIndex,
                 top250Fetched: true,
@@ -29,6 +30,26 @@ function top250(state = {}, action) {
     }
 }
 
-export default combineReducers({
-    top250
-})
+export function movieReducer(state={},action){
+    switch (action.type) {
+        case REQUEST_MOVIE:
+            return {
+                ...state,
+                movieFetching:true,
+                movieFetched:false
+            }  
+        case RESPONSE_MOVIE:
+            return {
+                ...state,
+                movie:action.ret,
+                movieFetched:true,
+                movieFetching:false
+            }      
+        default:
+            return state
+    }
+}
+
+// export default combineReducers({
+    // top250
+// })
