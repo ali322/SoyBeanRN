@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 
 import {
     REQUEST_TOP250, RESPONSE_TOP250,
@@ -6,7 +6,7 @@ import {
     REQUEST_MOVIE, RESPONSE_MOVIE
 } from "./constant"
 
-import {combineReducers} from "redux";
+import {combineReducers} from "redux"
 
 export function top250(state = {}, action) {
     switch (action.type) {
@@ -24,6 +24,28 @@ export function top250(state = {}, action) {
                 pageIndex:action.pageIndex,
                 top250Fetched: true,
                 top250Fetching: false
+            }
+        default:
+            return state
+    }
+}
+
+export function movies(state = {}, action) {
+    switch (action.type) {
+        case REQUEST_MOVIES:
+            return {
+                ...state,
+                moviesFetching: true,
+                moviesFetched: false
+            }
+        case RESPONSE_MOVIES:
+            const list = [].concat(state.list, action.ret.subjects)
+            return {
+                ...state,
+                list,
+                pageIndex:action.pageIndex,
+                moviesFetched: true,
+                moviesFetching: false
             }
         default:
             return state

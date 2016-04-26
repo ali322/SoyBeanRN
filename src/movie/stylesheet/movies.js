@@ -39,6 +39,37 @@ const styles = {
     },
     movieCasts: {
         color: "#666"
+    },
+    navigationBar:{
+        height:64,
+        paddingTop:20,
+        paddingHorizontal:8,
+        flexDirection:"row",
+        alignItems:"center",
+        backgroundColor:"#FFF",
+        borderBottomWidth:0.5,
+        borderBottomColor:"#DDD"
+    },
+    navigationBarButton:{
+        width:50,
+        height:44,
+        flexDirection:"row",
+        alignItems:"center",
+        justifyContent:"center",
+    },
+    navigationBarButtonText:{
+        color:"#666"
+    },
+    navigationBarInput:{
+        flex:1,
+        height:30,
+        paddingHorizontal:8,
+        marginVertical:7,
+        borderRadius:5,
+        borderColor:"#DDD",
+        borderWidth:0.5,
+        fontSize:15,
+        color:"#666"
     }
 }
 

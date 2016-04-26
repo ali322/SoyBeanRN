@@ -32,25 +32,27 @@ export function fetchTop250(pageIndex=0,pageSize=6) {
     }
 }
 
-function requestMovies(){
+function requestMovies(pageIndex){
     return {
-        type:REQUEST_MOVIES
+        type:REQUEST_MOVIES,
+        pageIndex
     }
 }
 
-function responseMovies(ret) {
+function responseMovies(ret,pageIndex) {
     return {
         type:RESPONSE_MOVIES,
         respondAt:Date.now(),
-        ret
+        ret,
+        pageIndex
     }
 }
 
-export function fetchMovies() {
+export function fetchMovies(keyword,pageIndex=0,pageSize=6) {
     return (dispatch)=>{
-        dispatch(requestMovies())
-        fetch(api.searchMovies).then((ret)=>ret.json()).then((ret)=>{
-            dispatch(responseMovies(ret))
+        dispatch(requestMovies(pageIndex))
+        fetch(`${api.searchMovie}?q=${keyword}&start=${pageIndex * pageSize}&count=${pageSize}`).then((ret)=>ret.json()).then((ret)=>{
+            dispatch(responseMovies(ret,pageIndex))
         })
     }
 }

@@ -25,9 +25,11 @@ class Movie extends Component {
     }
     componentWillReceiveProps(nextProps){
         if(!nextProps.movieFetching && nextProps.movieFetched){
-            this.setState({
-                dataSource:this.state.dataSource.cloneWithRows(nextProps.movie.casts)
-            })
+            if(nextProps.movie.casts.length > 0){
+                this.setState({
+                    dataSource:this.state.dataSource.cloneWithRows(nextProps.movie.casts)
+                })
+            }
         }
     }
     renderNavigationBar() {

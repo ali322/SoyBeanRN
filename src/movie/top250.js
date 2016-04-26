@@ -1,19 +1,18 @@
 'use strict'
 
 import React, {Component, View, Text,
-    ListView, RefreshControl, TouchableOpacity,TextInput,
+    ListView, RefreshControl, TouchableOpacity,
     Animated, Image, LayoutAnimation, Platform} from "react-native"
 import {Actions} from "react-native-router-flux"
-import NavigationBar from "react-native-navbar"
 import styles from "./stylesheet/movies"
 
 import {containerByComponent} from "../lib/redux-helper"
-import {movies} from "./reducer"
-import {fetchMovies} from "./action"
+import {top250} from "./reducer"
+import {fetchTop250} from "./action"
 
 import LoadMore from "../common/loadmore"
 
-class Movies extends Component {
+class Top250 extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -21,16 +20,15 @@ class Movies extends Component {
                 rowHasChanged: (row1, row2) => row1 !== row2,
                 sectionHeaderHasChanged: (s1, s2) => s1 !== s2
             }),
-            refreshing: false,
-            keyword:""
+            refreshing: false
             // rowScale: new Animated.Value(0)
         }
     }
     componentDidMount() {
-        // this.props.fetchTop250()
+        this.props.fetchTop250()
     }
     componentWillReceiveProps(nextProps) {
-        if (nextProps.moviesFetched && !nextProps.moviesFetching) {
+        if (nextProps.top250Fetched && !nextProps.top250Fetching) {
             this.setState({
                 dataSource: this.state.dataSource.cloneWithRows(nextProps.list)
             }, () => {
@@ -47,13 +45,10 @@ class Movies extends Component {
         // this.setState({refreshing:true})
     }
     loadMore() {
-        this.props.fetchMovies(this.props.pageIndex + 1)
+        this.props.fetchTop250(this.props.pageIndex + 1)
     }
     handleTapRow(id) {
         Actions.movie({id})
-    }
-    handleSearch(){
-        this.props.fetchMovies(this.state.keyword)
     }
     renderRow(movie) {
         const cover = <Image style={styles.movieCover} source={{ uri: movie.images["small"] }}/>
@@ -76,35 +71,24 @@ class Movies extends Component {
             </TouchableOpacity>
         )
     }
-    renderNavigationBar(){
-        return (
-        <View style={styles.navigationBar}>
-        <TextInput style={styles.navigationBarInput} placeholder="请输入搜索关键字" clearButtonMode="while-editing" 
-        onChangeText={(keyword)=>this.setState({keyword})}/>
-        <TouchableOpacity style={styles.navigationBarButton} onPress={this.state.keyword === ""?Actions.pop:this.handleSearch.bind(this)}>
-            <Text style={styles.navigationBarButtonText}>{this.state.keyword === ""?"取消":"搜索"}</Text>
-        </TouchableOpacity>
-        </View>
-        )
-    }
     render() {
         const threshold = (Platform.OS === "android" ? 10 : -20)
         return (
-            <View style={[styles.container,{marginTop:0,paddingTop:0}]}>
-                {this.renderNavigationBar()}
+            <View style={styles.container}>
                 <ListView dataSource={this.state.dataSource} renderRow={this.renderRow.bind(this) }
                     refreshControl={<RefreshControl refreshing={this.state.refreshing} title="加载中..." onRefresh={this.handleRefresh.bind(this) }/>}
                     onEndReached={this.loadMore.bind(this) } onEndReachedThreshold={threshold} initialListSize={6}
-                    renderFooter={() => this.props.list.length > 0 ? <LoadMore active={this.props.moviesFetching} /> : null}/>
+                    renderFooter={() => this.props.list.length > 0 ? <LoadMore active={this.props.top250Fetching} /> : null}/>
             </View>
         )
     }
 }
 
 
-export default containerByComponent(Movies, movies, { fetchMovies }, state => state,
+export default containerByComponent(Top250, top250, { fetchTop250 }, state => state,
     {
         list: [],
         pageIndex: 0,
     ...this.props
 })
+
