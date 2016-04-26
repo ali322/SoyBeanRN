@@ -1,11 +1,11 @@
-'use strict';
+'use strict'
 import {
     REQUEST_TOP250,RESPONSE_TOP250,
     REQUEST_MOVIES,RESPONSE_MOVIES,
     REQUEST_MOVIE,RESPONSE_MOVIE
 } from "./constant"
 
-import api from "../lib/api";
+import api from "../lib/api"
 
 function requestTop250(pageIndex){
     return {
@@ -34,7 +34,7 @@ export function fetchTop250(pageIndex=0,pageSize=6) {
 
 function requestMovies(){
     return {
-        type:REQUEST_MOVIES,
+        type:REQUEST_MOVIES
     }
 }
 

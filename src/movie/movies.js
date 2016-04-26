@@ -1,16 +1,16 @@
-'use strict';
+'use strict'
 
 import React, {Component, View, Text,
     ListView, RefreshControl, TouchableOpacity,
-    Animated, Image, LayoutAnimation, Platform} from "react-native";
-import {Actions} from "react-native-router-flux";
-import styles from "./stylesheet";
+    Animated, Image, LayoutAnimation, Platform} from "react-native"
+import {Actions} from "react-native-router-flux"
+import styles from "./stylesheet/movies"
 
-import {containerByComponent} from "../lib/redux-helper";
-import {top250} from "./reducer";
-import {fetchTop250} from "./action";
+import {containerByComponent} from "../lib/redux-helper"
+import {top250} from "./reducer"
+import {fetchTop250} from "./action"
 
-import LoadMore from "../common/loadmore";
+import LoadMore from "../common/loadmore"
 
 class Movies extends Component {
     constructor(props) {
@@ -32,7 +32,7 @@ class Movies extends Component {
             this.setState({
                 dataSource: this.state.dataSource.cloneWithRows(nextProps.list)
             }, () => {
-                LayoutAnimation.spring();
+                LayoutAnimation.spring()
                 // this.state.rowScale.setValue(0.9)
                 // Animated.timing(this.state.rowScale, {
                 //     toValue: 1,
@@ -72,7 +72,7 @@ class Movies extends Component {
         )
     }
     render() {
-        const threshold = (Platform.OS === "android" ? 10 : -20);
+        const threshold = (Platform.OS === "android" ? 10 : -20)
         return (
             <View style={styles.container}>
                 <ListView dataSource={this.state.dataSource} renderRow={this.renderRow.bind(this) }

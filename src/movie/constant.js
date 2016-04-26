@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 
 export const REQUEST_TOP250 = "REQUEST_TOP250"
 export const RESPONSE_TOP250 = "RESPONSE_TOP250"

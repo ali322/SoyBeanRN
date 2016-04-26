@@ -1,13 +1,13 @@
-'use strict';
+'use strict'
 
 import React, {
     AppRegistry, Component, View, Text, StyleSheet
-} from "react-native";
-import {Actions, Scene, Router, Reducer} from "react-native-router-flux";
-import Icon from "react-native-vector-icons/MaterialIcons";
+} from "react-native"
+import {Actions, Scene, Router, Reducer} from "react-native-router-flux"
+import Icon from "react-native-vector-icons/MaterialIcons"
 
-import movieScene from "./movie/scene";
-import Book from "./book/book";
+import movieScene from "./movie/scene"
+import Book from "./book/book"
 
 const reducerCreator = params => {
     const defaultReducer = Reducer(params)
@@ -58,12 +58,12 @@ const styles = StyleSheet.create({
     navigationBar: {
         backgroundColor: "#FFF",
         borderBottomWidth: 1,
-        borderBottomColor: "#DDD",
+        borderBottomColor: "#DDD"
     },
     tabBar: {
         backgroundColor: "#FFF",
         borderTopWidth: 1,
-        borderTopColor: "#DDD",
+        borderTopColor: "#DDD"
     },
     tabIconText: {
         fontSize: 12,

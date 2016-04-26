@@ -1,12 +1,10 @@
-'use strict';
-
-import {StyleSheet, Platform} from "react-native";
+import {StyleSheet, Platform} from "react-native"
 
 const styles = {
     container: {
         flex: 1,
         backgroundColor: "#F7F7F7",
-        marginBottom:49,
+        marginBottom:49
     },
     movieCell: {
         flexDirection: "row",
@@ -15,13 +13,13 @@ const styles = {
         borderWidth: 0.5,
         borderRadius: 2,
         padding: 10,
-        marginVertical: 5,
-        marginHorizontal: 10,
-        backgroundColor: "#FFF",
+        marginVertical:4,
+        marginHorizontal:8,
+        backgroundColor: "#FFF"
     },
     movieCover: {
         width: 80,
-        height: 80,
+        height: 80
     },
     movieBreif: {
         paddingLeft: 8,
@@ -32,7 +30,7 @@ const styles = {
     movieTitle: {
         flex: 2,
         fontSize: 14,
-        color: "#333",
+        color: "#333"
     },
     movieSubtitle: {
         flex: 1.5,
@@ -40,7 +38,7 @@ const styles = {
         color: "#666"
     },
     movieCasts: {
-        color: "#666",
+        color: "#666"
     }
 }
 
@@ -54,12 +52,11 @@ const styleForAndroid = {
 const styleForIOS = {
     container: {
         ...styles.container,
-    paddingTop:64,
+        paddingTop:64
     }
 }
 
 export default StyleSheet.create(Object.assign({}, styles,
-    Platform.OS == "android" ? styleForAndroid : {},
-    Platform.OS == "ios" ? styleForIOS : {},
+    Platform.OS === "android" ? styleForAndroid : {},
+    Platform.OS === "ios" ? styleForIOS : {}
 ))
-

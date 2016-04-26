@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 
 const apiHost = "http://api.douban.com/v2/"
 
