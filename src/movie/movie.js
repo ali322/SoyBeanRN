@@ -1,6 +1,6 @@
 'use strict'
 
-import React, {Component, View, Image, Text,ListView} from "react-native"
+import React, {Component, View, Image, Text,ListView,TouchableOpacity} from "react-native"
 import NavigationBar from "react-native-navbar"
 import {Actions} from "react-native-router-flux"
 
@@ -13,24 +13,9 @@ import styles from "./stylesheet/movie"
 class Movie extends Component {
     constructor(props){
         super(props)
-        this.state = {
-            dataSource:new ListView.DataSource({
-                rowHasChanged: (row1, row2) => row1 !== row2,
-                sectionHeaderHasChanged: (s1, s2) => s1 !== s2
-            })
-        }
     }
     componentDidMount() {
         this.props.fetchMovie(this.props.id)
-    }
-    componentWillReceiveProps(nextProps){
-        if(!nextProps.movieFetching && nextProps.movieFetched){
-            if(nextProps.movie.casts.length > 0){
-                this.setState({
-                    dataSource:this.state.dataSource.cloneWithRows(nextProps.movie.casts)
-                })
-            }
-        }
     }
     renderNavigationBar() {
         const titleConfig = {
@@ -76,16 +61,15 @@ class Movie extends Component {
         if(!movie){
             return null
         }
-        return <ListView contentContainerStyle={styles.movieCasts} 
-        dataSource={this.state.dataSource} renderRow={this.renderRow.bind(this) }/>
-    }
-    renderRow(cast){
-        return (
-            <View style={styles.movieCast}>
-            <Image style={styles.castAvatar} source={{uri:cast.avatars["small"]}}/>
-            <Text style={styles.castName}>{cast.name}</Text>
-            </View>
-        )
+        const casts = movie.casts.map((cast,i)=>{
+            return (
+                <TouchableOpacity onPress={()=>Actions.cast({id:cast.id})} style={styles.movieCast} key={i}>
+                <Image style={styles.castAvatar} source={{uri:cast.avatars["small"]}}/>
+                <Text style={styles.castName}>{cast.name}</Text>
+                </TouchableOpacity>
+            )
+        })
+        return <View style={styles.movieCasts}>{casts}</View>
     }
     render() {
         return (

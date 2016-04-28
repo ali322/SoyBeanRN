@@ -2,7 +2,8 @@
 import {
     REQUEST_TOP250,RESPONSE_TOP250,
     REQUEST_MOVIES,RESPONSE_MOVIES,
-    REQUEST_MOVIE,RESPONSE_MOVIE
+    REQUEST_MOVIE,RESPONSE_MOVIE,
+    REQUEST_CAST,RESPONSE_CAST
 } from "./constant"
 
 import api from "../lib/api"
@@ -78,6 +79,31 @@ export function fetchMovie(id) {
         dispatch(requestMovie(id))
         fetch(`${api.movie}/${id}`).then((ret)=>ret.json()).then((ret)=>{
             dispatch(responseMovie(ret,id))
+        })
+    }
+}
+
+function requestCast(id) {
+    return {
+        type:REQUEST_CAST,
+        id
+    }
+}
+
+function responseCast(ret,id) {
+    return {
+        type:RESPONSE_CAST,
+        id,
+        ret,
+        respondAt:Date.now()
+    }
+}
+
+export function  fetchCast(id) {
+    return (dispatch)=>{
+        dispatch(requestCast(id))
+        fetch(`${api.creator}/${id}`).then((response)=>response.json()).then((ret)=>{
+            dispatch(responseCast(ret,id))
         })
     }
 }

@@ -3,7 +3,8 @@
 import {
     REQUEST_TOP250, RESPONSE_TOP250,
     REQUEST_MOVIES, RESPONSE_MOVIES,
-    REQUEST_MOVIE, RESPONSE_MOVIE
+    REQUEST_MOVIE, RESPONSE_MOVIE,
+    REQUEST_CAST, RESPONSE_CAST
 } from "./constant"
 
 import {combineReducers} from "redux"
@@ -21,7 +22,7 @@ export function top250(state = {}, action) {
             return {
                 ...state,
                 list,
-                pageIndex:action.pageIndex,
+                pageIndex: action.pageIndex,
                 top250Fetched: true,
                 top250Fetching: false
             }
@@ -43,7 +44,7 @@ export function movies(state = {}, action) {
             return {
                 ...state,
                 list,
-                pageIndex:action.pageIndex,
+                pageIndex: action.pageIndex,
                 moviesFetched: true,
                 moviesFetching: false
             }
@@ -52,21 +53,41 @@ export function movies(state = {}, action) {
     }
 }
 
-export function movieReducer(state={},action){
+export function movieReducer(state = {}, action) {
     switch (action.type) {
         case REQUEST_MOVIE:
             return {
                 ...state,
-                movieFetching:true,
-                movieFetched:false
-            }  
+                movieFetching: true,
+                movieFetched: false
+            }
         case RESPONSE_MOVIE:
             return {
                 ...state,
-                movie:action.ret,
-                movieFetched:true,
-                movieFetching:false
-            }      
+                movie: action.ret,
+                movieFetched: true,
+                movieFetching: false
+            }
+        default:
+            return state
+    }
+}
+
+export function castReducer(state = {}, action) {
+    switch (action.type) {
+        case REQUEST_CAST:
+            return {
+                ...state,
+                castFetching: true,
+                castFetched: false
+            }
+        case RESPONSE_CAST:
+            return {
+                ...state,
+                cast: action.ret,
+                castFetching: false,
+                castFetched: true
+            }
         default:
             return state
     }

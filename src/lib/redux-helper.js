@@ -42,9 +42,7 @@ function bindActionsToComponent(UnbindComponent,actions){
  * @returns (description)
  */
 export function containerByComponent(OriginalComponent,rootReducer,actions,
-    selector=(state)=>{
-        return state;
-    },initialState={}){
+    selector=(state)=>state,initialState={}){
     let bindedComponent = bindActionsToComponent(OriginalComponent,actions)
     let ConnectedComponent = connect(selector)(bindedComponent)
     

@@ -26,6 +26,9 @@ const styles = {
     movieAka:{
       flex:1.5  
     },
+    castAka:{
+       flex:1
+    },
     movieTitle: {
         flex: 1,
         fontSize: 14,
