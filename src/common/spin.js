@@ -1,7 +1,7 @@
-'use strict';
+'use strict'
 
-import React,{Component,Animated,Easing} from "react-native";
-import Icon from "react-native-vector-icons/MaterialIcons";
+import React,{Component,Animated,Easing} from "react-native"
+import Icon from "react-native-vector-icons/FontAwesome"
 
 class Spin extends Component{
     constructor(props){
@@ -27,7 +27,8 @@ class Spin extends Component{
     render(){
         const AnimatedComponent = Animated.createAnimatedComponent(Icon)
         return (
-            <AnimatedComponent name="autorenew" size={20} 
+            <AnimatedComponent name={this.props.name} color={this.props.color}
+            size={this.props.size} iconStyle={this.props.style}
             style={{transform:[{
                 rotateZ:this.state.rotateValue.interpolate({
                     inputRange:[0,1],
@@ -36,6 +37,13 @@ class Spin extends Component{
             }]}}/>
         )
     }
+}
+
+Spin.defaultProps = {
+    size:20,
+    name:"refresh",
+    color:"#333",
+    style:{}
 }
 
 export default Spin

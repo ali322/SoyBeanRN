@@ -7,7 +7,8 @@ import {Actions, Scene, Router, Reducer} from "react-native-router-flux"
 import Icon from "react-native-vector-icons/MaterialIcons"
 
 import movieScene from "./movie/scene"
-import Book from "./book/book"
+import bookScene from "./book/scene"
+import eventScene from "./event/scene"
 
 const reducerCreator = params => {
     const defaultReducer = Reducer(params)
@@ -41,7 +42,11 @@ export default class App extends Component {
                         </Scene>
                         <Scene key="tab2" title="图书" navigationBarStyle={styles.navigationBar}
                             icon={tabIcon({ name: "book", size: 18 }) }>
-                            <Scene key="book" component={Book} title="经典"></Scene>
+                            {bookScene}
+                        </Scene>
+                        <Scene key="tab3" title="活动" navigationBarStyle={styles.navigationBar}
+                            icon={tabIcon({ name: "forum", size: 18 }) }>
+                            {eventScene}
                         </Scene>
                     </Scene>
                 </Scene>

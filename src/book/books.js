@@ -5,16 +5,16 @@ import React, {Component, View, Text,
     Animated, Image, LayoutAnimation, Platform} from "react-native"
 import {Actions} from "react-native-router-flux"
 import NavigationBar from "react-native-navbar"
-import styles from "./stylesheet/movies"
+import styles from "./stylesheet/books"
 
 import {containerByComponent} from "../lib/redux-helper"
-import {movies} from "./reducer"
-import {fetchMovies} from "./action"
+import {booksReducer} from "./reducer"
+import {fetchBooks} from "./action"
 
 import LoadMore from "../common/loadmore"
 import Loading from "../common/loading"
 
-class Movies extends Component {
+class Books extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -23,15 +23,16 @@ class Movies extends Component {
                 sectionHeaderHasChanged: (s1, s2) => s1 !== s2
             }),
             refreshing: false,
-            keyword:""
+            keyword:"",
+            tag:"经典"
             // rowScale: new Animated.Value(0)
         }
     }
     componentDidMount() {
-        // this.props.fetchTop250()
+        this.props.fetchBooks("",this.state.tag)
     }
     componentWillReceiveProps(nextProps) {
-        if (nextProps.moviesFetched && !nextProps.moviesFetching) {
+        if (nextProps.booksFetched && !nextProps.booksFetching) {
             this.setState({
                 dataSource: this.state.dataSource.cloneWithRows(nextProps.list)
             }, () => {
@@ -48,31 +49,36 @@ class Movies extends Component {
         // this.setState({refreshing:true})
     }
     loadMore() {
-        this.props.fetchMovies(this.state.keyword,this.props.pageIndex + 1)
+        this.props.fetchBooks(this.state.keyword,this.state.tag,this.props.pageIndex + 1)
     }
     handleTapRow(id) {
-        Actions.movie({id})
+        Actions.book({id})
     }
     handleSearch(){
         this.refs["searchTextInput"].blur()
-        this.props.fetchMovies(this.state.keyword)
+        this.props.fetchBooks(this.state.keyword)
     }
-    renderRow(movie) {
-        const cover = <Image style={styles.movieCover} source={{ uri: movie.images["small"] }}/>
-        const casts = movie.casts.map((cast) => {
-            return cast.name
-        })
+    handleChange(keyword){
+        if(keyword){
+            this.setState({keyword,tag:""})
+        }else{
+            this.setState({keyword,tag:"经典"})
+        }
+    }
+    renderRow(book) {
+        const cover = <Image style={styles.movieCover} source={{ uri: book.image }}/>
         return (
-            <TouchableOpacity onPress={this.handleTapRow.bind(this, movie.id) }>
+            <TouchableOpacity onPress={this.handleTapRow.bind(this, book.id) }>
             <Animated.View style={[styles.movieCell, {
                 // opacity: this.state.rowScale,
                 // transform: [{ scaleX: this.state.rowScale }]
             }]}>
                     {cover}
                     <View style={styles.movieBreif}>
-                        <Text style={styles.movieTitle}>{movie.title}</Text>
-                        <Text style={styles.movieSubtitle}>评分: {movie.rating.average}</Text>
-                        <Text style={styles.movieCasts}><Text numberOfLines={2}>演员: {casts.join("/") }</Text></Text>
+                        <Text style={styles.movieTitle}>{book.title}</Text>
+                        <Text style={styles.movieSubtitle}>评分: {book.rating.average}</Text>
+                        <Text style={styles.movieSubtitle}>作者: {book.author.join("/")}</Text>
+                        <Text style={styles.movieSubtitle}>出版日期: {book.pubdate}</Text>
                     </View>
             </Animated.View>
             </TouchableOpacity>
@@ -82,7 +88,7 @@ class Movies extends Component {
         return (
         <View style={styles.navigationBar}>
         <TextInput style={styles.navigationBarInput} ref="searchTextInput" placeholder="请输入搜索关键字" clearButtonMode="while-editing" 
-        onChangeText={(keyword)=>this.setState({keyword})}/>
+        onChangeText={this.handleChange.bind(this)}/>
         <TouchableOpacity style={styles.navigationBarButton} onPress={this.state.keyword === ""?Actions.pop:this.handleSearch.bind(this)}>
             <Text style={styles.navigationBarButtonText}>{this.state.keyword === ""?"取消":"搜索"}</Text>
         </TouchableOpacity>
@@ -94,11 +100,11 @@ class Movies extends Component {
         return (
             <View style={[styles.container,{marginBottom:0,paddingTop:0}]}>
                 {this.renderNavigationBar()}
-                {this.props.moviesFetching && this.props.list.length === 0?<Loading/>:(
+                {this.props.booksFetching && this.props.list.length === 0?<Loading/>:(
                 <ListView dataSource={this.state.dataSource} renderRow={this.renderRow.bind(this) }
                     refreshControl={<RefreshControl refreshing={this.state.refreshing} title="加载中..." onRefresh={this.handleRefresh.bind(this) }/>}
                     onEndReached={this.loadMore.bind(this) } onEndReachedThreshold={threshold} initialListSize={6}
-                    renderFooter={() => this.props.list.length > 0 ? <LoadMore active={this.props.moviesFetching} /> : null}/>
+                    renderFooter={() => this.props.list.length > 0 ? <LoadMore active={this.props.booksFetching} /> : null}/>
                 )}
             </View>
         )
@@ -106,9 +112,9 @@ class Movies extends Component {
 }
 
 
-export default containerByComponent(Movies, movies, { fetchMovies }, state => state,
+export default containerByComponent(Books, booksReducer, { fetchBooks }, state => state,
     {
         list: [],
         pageIndex: 0,
-    ...this.props
+        ...this.props
 })

@@ -7,7 +7,9 @@ const api = {
     searchMovie:`${apiHost}movie/search`,
     movie:`${apiHost}movie/subject`,
     creator:`${apiHost}movie/celebrity`,
-    searchBook:`${apiHost}book/search`
+    
+    searchBook:`${apiHost}book/search`,
+    book:`${apiHost}book`
 }
 
 export default api

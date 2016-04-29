@@ -1,6 +1,6 @@
 'use strict'
 
-import React,{View} from "react-native"
+import React,{View,TouchableOpacity} from "react-native"
 import {Scene,Actions} from "react-native-router-flux"
 import Icon from "react-native-vector-icons/MaterialIcons"
 import Top250 from "./top250"
@@ -10,7 +10,7 @@ import Cast from "./cast"
 
 let scenes = [
     <Scene key="top250" component={Top250} title="Top250" initial={true} renderLeftButton={()=>{
-        return <View style={rightButtonStyle}><Icon name="search" size={20} onPress={Actions.movies}/></View>
+        return <TouchableOpacity style={rightButtonStyle} onPress={Actions.movies}><Icon name="search" size={20}/></TouchableOpacity>
     }}></Scene>,
     <Scene key="movies" component={Movies} hideNavBar={true} hideTabBar={true}></Scene>,
     <Scene key="movie" component={Movie} hideNavBar={true} hideTabBar={true}></Scene>,

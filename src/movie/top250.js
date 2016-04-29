@@ -11,6 +11,7 @@ import {top250} from "./reducer"
 import {fetchTop250} from "./action"
 
 import LoadMore from "../common/loadmore"
+import Loading from "../common/loading"
 
 class Top250 extends Component {
     constructor(props) {
@@ -75,10 +76,12 @@ class Top250 extends Component {
         const threshold = (Platform.OS === "android" ? 10 : -20)
         return (
             <View style={styles.container}>
+                {this.props.top250Fetching && this.props.list.length === 0?<Loading/>:(
                 <ListView dataSource={this.state.dataSource} renderRow={this.renderRow.bind(this) }
                     refreshControl={<RefreshControl refreshing={this.state.refreshing} title="加载中..." onRefresh={this.handleRefresh.bind(this) }/>}
                     onEndReached={this.loadMore.bind(this) } onEndReachedThreshold={threshold} initialListSize={6}
                     renderFooter={() => this.props.list.length > 0 ? <LoadMore active={this.props.top250Fetching} /> : null}/>
+                )}
             </View>
         )
     }

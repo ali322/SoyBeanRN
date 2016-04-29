@@ -1,12 +1,13 @@
 'use strict'
 
-import React,{Component,Text,View,TouchableOpacity,Image} from "react-native"
+import React,{Component,Text,View,TouchableOpacity,Image,ScrollView} from "react-native"
 import NavigationBar from "react-native-navbar"
 import {Actions} from "react-native-router-flux"
 
 import {containerByComponent} from "../lib/redux-helper"
 import {castReducer} from "./reducer"
 import {fetchCast} from "./action"
+import Loading from "../common/loading"
 
 import styles from "./stylesheet/movie"
 
@@ -51,7 +52,7 @@ class Cast extends Component{
     }
     renderNavigationBar() {
         const titleConfig = {
-            title: this.props.cast ? this.props.cast.name : ""
+            title: this.props.cast ? this.props.cast.name : "加载中"
         }
         const leftButtonConfig = {
             title: "返回",
@@ -64,10 +65,14 @@ class Cast extends Component{
     }
     render(){
         return (
-            <View>
+            <View style={styles.container}>
             {this.renderNavigationBar()}
-            {this.renderBreif()}
-            {this.renderWorks()}
+            {this.props.castFetching?<Loading />:(
+                <ScrollView>
+                {this.renderBreif()}
+                {this.renderWorks()}
+                </ScrollView>
+            )}
             </View>
         )
     }
