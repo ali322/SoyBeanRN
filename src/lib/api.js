@@ -9,7 +9,11 @@ const api = {
     creator:`${apiHost}movie/celebrity`,
     
     searchBook:`${apiHost}book/search`,
-    book:`${apiHost}book`
+    book:`${apiHost}book`,
+    
+    eventLocations:`${apiHost}loc/list`,
+    events:`${apiHost}event/list`,
+    event:`${apiHost}event`
 }
 
 export default api

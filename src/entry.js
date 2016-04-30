@@ -72,6 +72,7 @@ const styles = StyleSheet.create({
     },
     tabIconText: {
         fontSize: 12,
-        color: "#666"
+        color: "#666",
+        paddingTop:3
     }
 })
